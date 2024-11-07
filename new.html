@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Interface</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .booking-container1 {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .price-header1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        .price-per-night1 {
+            color: #666;
+            font-size: 16px;
+            font-weight: normal;
+        }
+
+        .status-row1 {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .info-icon1 {
+            color: #666;
+        }
+
+        .check-icon1 {
+            color: #00693e;
+        }
+
+        .dates-container1 {
+            display: flex;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .date-box1 {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .date-label1 {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .travelers-button1 {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            text-align: left;
+            cursor: pointer;
+            margin-bottom: 16px;
+        }
+
+        .total-row1 {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .price-details1 {
+            color: #0066ff;
+            text-decoration: none;
+        }
+
+        .book-button1 {
+            width: 100%;
+            padding: 14px;
+            background: #0066ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 16px 0;
+        }
+
+        .no-charge1 {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .modal1 {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content1 {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .counter-row1 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .counter-controls1 {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .counter-button1 {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .counter-button1:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pets-checkbox1 {
+            margin: 20px 0;
+        }
+
+        .done-button1 {
+            width: 100%;
+            padding: 14px;
+            background: #0066ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="booking-container1">
+        <div class="price-header1">
+            $134 <span class="price-per-night1">per night</span>
+        </div>
+
+        <div class="status-row1">
+            <span class="info-icon1">ⓘ</span>
+            <span>Non-refundable</span>
+        </div>
+
+        <div class="status-row1">
+            <span class="check-icon1">✓</span>
+            <span>Your dates are available</span>
+        </div>
+
+        <div class="dates-container1">
+            <div class="date-box1">
+                <div class="date-label1">Start date</div>
+                <div>Nov 18</div>
+            </div>
+            <div class="date-box1">
+                <div class="date-label1">End date</div>
+                <div>Nov 20</div>
+            </div>
+        </div>
+
+        <button class="travelers-button1" id="travelersBtn">
+            <div class="date-label1">Travelers</div>
+            <div id="travelersDisplay1">2 travelers</div>
+        </button>
+
+        <div class="total-row1">
+            <span>Total</span>
+            <span>$538</span>
+        </div>
+        <div class="total-row1">
+            <span>Total includes fees, not tax</span>
+            <a href="#" class="price-details1">Price details</a>
+        </div>
+
+        <button class="book-button1">Book now</button>
+        <div class="no-charge1">You will not be charged yet</div>
+    </div>
+
+    <!-- Travelers Modal -->
+    <div class="modal1" id="travelersModal">
+        <div class="modal-content1">
+            <div class="counter-row1">
+                <div>Adults</div>
+                <div class="counter-controls1">
+                    <button class="counter-button1" id="adultsMinusBtn" onclick="updateCount('adults', -1)">-</button>
+                    <span id="adultsCount">2</span>
+                    <button class="counter-button1" onclick="updateCount('adults', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="counter-row1">
+                <div>
+                    Children
+                    <div style="font-size: 12px; color: #666;">Ages 2 to 12</div>
+                </div>
+                <div class="counter-controls1">
+                    <button class="counter-button1" id="childrenMinusBtn" onclick="updateCount('children', -1)">-</button>
+                    <span id="childrenCount">0</span>
+                    <button class="counter-button1" onclick="updateCount('children', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="pets-checkbox1">
+                <label>
+                    <input type="checkbox"> I am traveling with pets
+                </label>
+            </div>
+
+            <button class="done-button1" onclick="closeModal()">Done</button>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('travelersModal');
+        const travelersBtn = document.getElementById('travelersBtn');
+        const travelersDisplay = document.getElementById('travelersDisplay1');
+        let adults = 2;
+        let children = 0;
+
+        travelersBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
+
+        function updateCount(type, change) {
+            if (type === 'adults') {
+                adults = Math.max(1, adults + change);
+                document.getElementById('adultsCount').textContent = adults;
+                document.getElementById('adultsMinusBtn').disabled = adults === 1;
+            } else {
+                children = Math.max(0, children + change);
+                document.getElementById('childrenCount').textContent = children;
+                document.getElementById('childrenMinusBtn').disabled = children === 0;
+            }
+            updateTotalDisplay();
+        }
+
+        function updateTotalDisplay() {
+            const total = adults + children;
+            travelersDisplay.textContent = `${total} traveler${total !== 1 ? 's' : ''}`;
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Initialize button states
+        document.getElementById('adultsMinusBtn').disabled = adults === 1;
+        document.getElementById('childrenMinusBtn').disabled = children === 0;
+    </script>
+</body>
+</html>
